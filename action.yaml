@@ -1,33 +1,51 @@
-name: 'gpr-docker-publish'
-description: Publish a Docker image to GitHub Package Registry
-author: Hamel Husain
+name: 'action-docker-publish'
+description: Build a Docker image and push to a container registry
 inputs:
-  password:
-    description: Your GitHub password corresponding to write access to the repo where this action is called.
+  registry:
+    description: Container registry to publish image to
+    required: false
+    default: 'docker.io'
+  password: 
+    description: Container registry password
     required: true
   username:
-    description: Your GitHub password corresponding to write access to the repo where this action is called.
+    description: Container registry username.
     require: true
   image_name:
-    description: name of the image.  Example - myContainer
+    description: Name of the image.
     require: true
   build_context:
-    description: the path in your repo that will serve as the build context
-    require: true
+    description: The path to the build context
+    require: false
     default: './'
   dockerfile_path:
-    description: the full path (including the filename) to the dockerfile that you want to build
-    require: true
-    default: ./Dockerfile
+    description: The full path (including the filename) to the dockerfile that you want to build
+    require: false
+    default: './Dockerfile'
   cache:
-    description: attempt to use last image as the cache
+    description: Attempt to use last image as the cache
     require: false
     default: false
-outputs:
-  IMAGE_SHA_NAME:
-    description: name of the Docker Image including the tag
-  IMAGE_URL:
-    description: the URL where you can view the hosted image on GitHub. 
+  tag_ref:
+    description: Tag image with branch or tag name
+    require: false
+    default: true
+  tag_latest:
+    description: Tag image as latest
+    require: false
+    default: false
+  tag_version:
+    description: Tag image using the version label from Dockerfile (if present)
+    require: false
+    default: false
+  tag_sha:
+    description: Tag image using the git sha
+    require: false
+    default: false
+  tag_timestamp: 
+    description: Tag image with timestamp as %Y-%m-%d_%H%M%S%N
+    require: false
+    default: false
 branding:
   color: 'purple'
   icon: 'layers'
