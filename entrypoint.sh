@@ -97,7 +97,7 @@ fi
 
 if [ "${INPUT_TAG_TIMESTAMP}" == "true" ]; then
     # Set Local Variables
-    TIMESTAMP_TAG=$(date +%Y-%m-%d_%HH%MM%SS%N)
+    TIMESTAMP_TAG=$(date +%Y-%m-%d_%H%M%S%N)
     echo "tagging as ${BASE_NAME}:${TIMESTAMP_TAG}"
     docker tag ${BASE_NAME} "${BASE_NAME}:${TIMESTAMP_TAG}"
     docker push "${BASE_NAME}:${TIMESTAMP_TAG}"
