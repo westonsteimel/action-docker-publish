@@ -65,9 +65,10 @@ fi
 docker build $BUILDPARAMS --tag ${BASE_NAME} --file ${INPUT_DOCKERFILE_PATH} ${INPUT_BUILD_CONTEXT}
 
 if [ "${INPUT_TAG_REF}" == "true" ]; then
-    echo "tagging as ${BASE_NAME}:${GITHUB_REF}"
-    docker tag ${BASE_NAME} ${BASE_NAME}:${GITHUB_REF}
-    docker push ${BASE_NAME}:${GITHUB_REF}
+    REF_TAG=$(basename ${GITHUB_REF})
+    echo "tagging as ${BASE_NAME}:${REF_TAG}"
+    docker tag ${BASE_NAME} ${BASE_NAME}:${REF_TAG}
+    docker push ${BASE_NAME}:${REF_TAG}
 fi
 
 if [ "${INPUT_TAG_LATEST}" == "true" ]; then
