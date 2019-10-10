@@ -66,7 +66,7 @@ docker build $BUILDPARAMS --tag ${BASE_NAME} --file ${INPUT_DOCKERFILE_PATH} ${I
 
 if [ "${INPUT_TAG_REF}" == "true" ]; then
     REF_TAG=$(basename ${GITHUB_REF})
-    echo "tagging as ${BASE_NAME}:${REF_TAG}"
+    echo "tagging from ref branch as ${BASE_NAME}:${REF_TAG}"
     docker tag ${BASE_NAME} ${BASE_NAME}:${REF_TAG}
     docker push ${BASE_NAME}:${REF_TAG}
 fi
@@ -81,7 +81,7 @@ if [ "${INPUT_TAG_VERSION}" == "true" ]; then
     VERSION_TAG=$(docker inspect ${BASE_NAME} | jq -r .[0].ContainerConfig.Labels.version) 
     
     if [ "${VERSION_TAG}" != "null" ]; then
-        echo "tagging as ${BASE_NAME}:${VERSION_TAG}"
+        echo "tagging from version as ${BASE_NAME}:${VERSION_TAG}"
         docker tag ${BASE_NAME} "${BASE_NAME}:${VERSION_TAG}"
         docker push "${BASE_NAME}:${VERSION_TAG}"
     fi
@@ -90,7 +90,7 @@ fi
 if [ "${INPUT_TAG_SHA}" == "true" ]; then
     # Set Local Variables
     SHORT_SHA=$(echo "${GITHUB_SHA}" | cut -c1-12)
-    echo "tagging as ${BASE_NAME}:${SHORT_SHA}"
+    echo "tagging from commit sha as ${BASE_NAME}:${SHORT_SHA}"
     docker tag ${BASE_NAME} "${BASE_NAME}:${SHORT_SHA}"
     docker push "${BASE_NAME}:${shortSHA}"
 fi
@@ -98,7 +98,7 @@ fi
 if [ "${INPUT_TAG_TIMESTAMP}" == "true" ]; then
     # Set Local Variables
     TIMESTAMP_TAG=$(date +%Y-%m-%d_%H%M%S%N)
-    echo "tagging as ${BASE_NAME}:${TIMESTAMP_TAG}"
+    echo "tagging from timestamp as ${BASE_NAME}:${TIMESTAMP_TAG}"
     docker tag ${BASE_NAME} "${BASE_NAME}:${TIMESTAMP_TAG}"
     docker push "${BASE_NAME}:${TIMESTAMP_TAG}"
 fi
