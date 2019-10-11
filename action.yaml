@@ -26,6 +26,9 @@ inputs:
     description: Attempt to use last image as the cache
     require: false
     default: false
+  static_tags:
+    description: A space-delimited list of static tags for the image
+    require: false
   tag_ref:
     description: Tag image with branch or tag name
     require: false
@@ -39,7 +42,7 @@ inputs:
     require: false
     default: false
   tag_sha:
-    description: Tag image using the git sha
+    description: Tag image using the git commit sha
     require: false
     default: false
   tag_timestamp: 

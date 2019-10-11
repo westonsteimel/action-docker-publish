@@ -103,4 +103,13 @@ if [ "${INPUT_TAG_TIMESTAMP}" == "true" ]; then
     docker push "${BASE_NAME}:${TIMESTAMP_TAG}"
 fi
 
+if [[ ! -z "$INPUT_STATIC_TAGS" ]]; then
+    IFS=' ' read -ra TAGS <<< "$INPUT_STATIC_TAGS"
+    for tag in "${TAGS[@]}"; do
+        echo "tagging as ${BASE_NAME}:${tag}"
+        docker tag ${BASE_NAME} "${BASE_NAME}:${tag}"
+        docker push "${BASE_NAME}:${tag}"
+    done
+fi
+
 docker logout
