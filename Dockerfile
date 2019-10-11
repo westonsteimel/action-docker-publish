@@ -5,7 +5,8 @@ RUN apk update \
   && apk add --no-cache \
   ca-certificates \
   git \
-  jq 
+  jq \
+  bash
 
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
