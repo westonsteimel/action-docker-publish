@@ -1,4 +1,4 @@
-FROM docker:19.03.8 as runtime
+FROM docker:19.03.11 as runtime
 
 RUN apk update \
   && apk upgrade \
